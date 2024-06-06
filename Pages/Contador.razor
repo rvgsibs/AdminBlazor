@@ -1,0 +1,16 @@
+﻿@page "/contador"
+
+<PageTitle>Contador</PageTitle>
+
+<MudText Typo="Typo.h3" GutterBottom="true">Contador</MudText>
+<MudText Class="mb-4">Quantos cliques tivemos: @quantidadeCliques</MudText>
+<MudButton Color="Color.Primary" Variant="Variant.Filled" @onclick="Contar">Clique aqui</MudButton>
+
+@code {
+    private int quantidadeCliques = 0;
+
+    private void Contar()
+    {
+        quantidadeCliques++;
+    }
+}
