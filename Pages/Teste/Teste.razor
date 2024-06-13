@@ -1,0 +1,19 @@
+﻿@page "/teste"
+@inherits CreateTestePage
+
+<MudText Typo="Typo.h3">Teste</MudText>
+
+<MudPaper Class="pa-8 mt-4">
+    <EditForm Model="@InputMode" OnSubmit="OnValidSubmitAsync">
+        <DataAnnotationsValidator />
+        
+        <MudTextField Label="Nome" HelperText="Campo obrigatório" @bind-Value="InputMode.Nome" For="@(() => InputMode.Nome)"></MudTextField>
+
+        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">Salvar</MudButton>
+    </EditForm>
+</MudPaper>
+
+<h1>@msg</h1>
+
+@* <MudButton @onclick="OnValidSubmitAsync">Teste</MudButton> *@
+

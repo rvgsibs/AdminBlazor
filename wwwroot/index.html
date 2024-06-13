@@ -16,15 +16,75 @@
     <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
 
 
-    <link rel="stylesheet" href="css/app.css" />
+    <link rel="stylesheet" href="css/app.css?v=1" />
     <!-- If you add any scoped CSS files, uncomment the following to load them
     <link href="AdminBlazor.styles.css" rel="stylesheet" /> -->
     <link href="manifest.webmanifest" rel="manifest" />
     <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
     <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png" />
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/philfung/add-to-homescreen@1.8/dist/add-to-homescreen.min.css">
+    <script src="add-to-homescreen.min.js"></script>
 </head>
 
 <body>
+    <div style="width:100% !important; margin-top:100px; display: block !important; background-color: red !important; height:100px !important; text-align: center;">
+        <button id="pegar" style="background-color:magenta">Pegar localização</button>
+        Lat.: <span id="lat">0</span><br>
+        Log.: <span id="log">0</span>
+    </div>
+    
+    <script>
+        let startPos;
+
+        const btnLocation = document.getElementById('pegar');
+        const outLat = document.getElementById('lat');
+        const outLog = document.getElementById('log');
+
+        btnLocation.addEventListener('click', () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(geoSucess, geoError)
+            } else {
+
+            }
+        })
+
+        const geoSucess = (position) => {
+            startPos = position;
+            outLat.innerHTML = startPos.coords.latitude + " - " + startPos.coords.longitude;
+
+        }
+
+        const geoError = (error) => {
+            console.log(error);
+        }
+
+        //if ('geolocation' in navigator) {
+        //    //navigator.geolocation.getCurrentPosition(function (position) {
+        //    //    console.log(position)
+        //    //}, function (error) {
+        //    //    console.log(error)
+        //    //});
+
+        //    const watch = navigator.geolocation.watchPosition(function position() {
+        //        alert(position);
+        //        console.log(position);
+        //    }, function (error) {
+        //        console.log(error)
+        //    },
+        //        { enableHighAccuracy: true, maximunAge: 30000, timeout: 30000 });
+
+        //    //navigator.geolocation.clearWatch(watch);
+        //} else {
+        //    alert("Não é possivel pegar a localização")
+        //}
+    </script>
+
+
+    <!--<button type="button" style="width:100%; height:200px; background-color:red !important;" id="enable-banner-install">clique  e me instale na sua tela inicial</button>
+    <button id="installButton" style="display: none;">Instalar</button>
+    <button id="setup_button" onclick="installApp()">Installer</button>-->
     <div id="app">
         <svg class="loading-progress">
             <circle r="40%" cx="50%" cy="50%" />
@@ -41,6 +101,33 @@
     <script src="_framework/blazor.webassembly.js"></script>
     <!--Inclusao script mudblazor-->
     <script src="_content/MudBlazor/MudBlazor.min.js"></script>
+    <script src="app.js"></script>
+
+    <!--<script>
+        document.addEventListener('DOMContentLoaded', function () { // document.getElementById('addToHomeScreen').addEventListener('click', function () and add <button id="addToHomeScreen">Add to Home Screen</button> somewhere on your page to get a button instead.
+
+            window.AddToHomeScreenInstance = new window.AddToHomeScreen({
+                appName: 'Aardvark',                                   // Name of the app.
+                // Required.
+                appIconUrl: 'apple-touch-icon.png',                    // App icon link (square, at least 40 x 40 pixels).
+                // Required.
+                assetUrl: 'https://cdn.jsdelivr.net/gh/philfung/add-to-homescreen@1.8/dist/assets/img/',  // Link to directory of library image assets.
+                // Required.
+                showErrorMessageForUnsupportedBrowsers: window.AddToHomeScreen.SHOW_ERRMSG_UNSUPPORTED.ALL, // Show an error message if add-to-home-screen is not supported for this browser
+                // (e.g.  "adding to home screen is not supported in IOS Firefox, please open this [website] in IOS Safari instead." or "adding to home screen is not supported on desktop, please open this [website] in your mobile browser instead".  You can also set more granular permissions to show error messages only on mobile browsers and not on desktop browsers, etc)
+                // Optional. Default: window.AddToHomeScreen.SHOW_ERRMSG_UNSUPPORTED.ALL
+                allowUserToCloseModal: false,                          // Allow user to close the 'Add to Homescreen' message? Not allowing will increase installs.
+                // Optional. Default: false.
+                maxModalDisplayCount: -1                               // If set, the modal will only show this many times.
+                // Optional. Default: -1 (no limit).  (Debugging: Use this.clearModalDisplayCount() to reset the count)
+            });
+
+            ret = window.AddToHomeScreenInstance.show('pt');        // show "add-to-homescreen" instructions to user, or do nothing if already added to homescreen
+            // The only argument is the language to show the messages in (currently only 'de', 'en', 'pt' and 'fr' are available).
+        });
+    </script>-->
+
+
     <script>navigator.serviceWorker.register('service-worker.js');</script>
 </body>
 
